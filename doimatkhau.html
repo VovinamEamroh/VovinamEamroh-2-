@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đổi Mật Khẩu | Vovinam Ea M'droh</title>
+    <link rel="icon" type="image/png" href="Logo_VVF.png">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKTVYHZR0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKTVYHZR0Z');
+    </script>
+</head>
+<body class="auth-body">
+
+    <nav class="navbar">
+        <div class="logo"><h1>VOVINAM EAM'DROH</h1></div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">TRANG CHỦ</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">CÂU LẠC BỘ</a>
+                    <div class="dropdown-content">
+                        <a href="diemdanh.html" id="navDiemDanhCLB">🎯 Điểm danh CLB</a>
+                        <a href="#" id="navThongTinCLB">ℹ️ Thông tin CLB</a>
+                    </div>
+                </li>
+                <li><a href="tintuc.html">TIN TỨC</a></li>
+                <li><a href="cuahang.html">CỬA HÀNG</a></li>
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            <button class="btn-login" onclick="window.location.href='dangnhap.html'">ĐĂNG NHẬP</button>
+            <button class="btn-register" onclick="window.location.href='dangky.html'">ĐĂNG KÝ</button>
+        </div>
+    </nav>
+
+    <main class="auth-page-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>ĐỔI MẬT KHẨU</h2>
+                <p id="txtTenTaiKhoanHienTai">Đang xác thực tài khoản...</p>
+            </div>
+
+            <form id="formDoiMatKhau" class="auth-form">
+                <div class="form-group">
+                    <label>Mật khẩu mới:</label>
+                    <input type="password" id="mkMoi" placeholder="Nhập mật khẩu mới..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nhập lại mật khẩu mới:</label>
+                    <input type="password" id="mkMoiNhapLai" placeholder="Xác nhận mật khẩu mới..." required>
+                </div>
+
+                <button type="submit" class="btn-auth">CẬP NHẬT MẬT KHẨU</button>
+            </form>
+            
+            <div class="auth-footer">
+                <a href="index.html">⬅ Quay lại Trang chủ</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo">VOVINAM EA M'DROH</h3>
+                <p class="slogan">"Tinh Hoa Võ Thuật Việt Nam"</p>
+                <p class="sub-slogan">Rèn luyện thân thể - Tu dưỡng tinh thần</p>
+            </div>
+            <div class="footer-col">
+                <h4>LIÊN HỆ</h4>
+                <p>📞 Hotline BCN: <strong>0922.904.904</strong></p>
+                <p>✉️ Email: <strong>chungpln10101@gmail.com</strong></p>
+                <p>📍 Địa chỉ: Cư M'gar, Đắk Lắk</p>
+            </div>
+            <div class="footer-col">
+                <h4>KẾT NỐI VỚI CHÚNG TÔI</h4>
+                <div class="social-links">
+                    <a href="https://zalo.me/0332803846" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo IT</a> 
+                    <a href="https://zalo.me/0922904904" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo HLV</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vovinam Việt Võ Đạo - Ea M'droh. Thiết kế và phát triển bởi Phùng Lữ Ngọc Chung.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

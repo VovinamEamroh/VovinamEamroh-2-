@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOVINAM EAM'DROH</title>
+    <!-- Khai báo tệp cấu hình ứng dụng -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Đổi màu thanh trạng thái (cột pin/sóng) trên điện thoại -->
+    <meta name="theme-color" content="#0056b3">
+    <!-- Khai báo Logo dùng cho điện thoại iPhone/iPad -->
+    <link rel="apple-touch-icon" href="Logo_VVF.png">
+    <link rel="icon" type="image/png" href="Logo_VVF.png">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKTVYHZR0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKTVYHZR0Z');
+    </script>
+</head>
+<body>
+
+    <!-- ==========================================
+         MÀN HÌNH CHỜ (SPLASH SCREEN CAO CẤP)
+         ========================================== -->
+    <div id="manHinhCho" class="splash-screen">
+        <h2 class="splash-title">VOVINAM-VIỆT VÕ ĐẠO<br>EA' MDROH</h2>
+        
+        <div class="logo-wrapper" id="hieuUngAnhSang">
+            <!-- Đảm bảo đường dẫn Logo_VVF.png là chính xác trên hosting của bạn -->
+            <img src="Logo_VVF.png" alt="Vovinam Logo" class="splash-logo">
+        </div>
+        
+        <div class="splash-spinner"></div>
+    </div>
+    <header class="navbar">
+        <div class="logo">
+            <img src="Logo_VVF.png" alt="Logo Vovinam">
+            <h1>VOVINAM EAM'DROH</h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#">TRANG CHỦ</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">CÂU LẠC BỘ</a>
+                    <div class="dropdown-content">
+                        <a href="diemdanh.html" id="navDiemDanhCLB">🎯 Điểm danh CLB</a>
+                        <a href="#" id="navThongTinCLB">ℹ️ Thông tin CLB</a>
+                    </div>
+                </li>
+                <li><a href="tintuc.html">TIN TỨC</a></li>
+                <li><a href="cuahang.html">CỬA HÀNG</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons-group" style="display: flex; align-items: center; gap: 12px; margin-right: 20px;">
+            <!-- Nút Giao diện Tối/Sáng (Mặc định là Mặt trăng) -->
+            <button id="themeToggleBtn" class="nav-icon-btn" onclick="toggleDarkMode()" title="Giao diện Tối/Sáng">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+
+            <!-- Nút Chuông Thông báo -->
+            <div class="notification-bell nav-icon-btn" onclick="toggleThongBao()" title="Thông báo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span id="thongBaoBadge" class="badge">2</span>
+        
+                <!-- Hộp thoại thả xuống giữ nguyên -->
+                <div id="thongBaoDropdown" class="thongbao-content">
+                    <div class="thongbao-header">Thông báo của bạn</div>
+                    <ul id="danhSachThongBao">
+                        <li style="text-align:center; padding: 10px;">Đang tải...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="auth-buttons">
+            <button class="btn-login" onclick="window.location.href='dangnhap.html'">ĐĂNG NHẬP</button>
+            <button class="btn-register" onclick="window.location.href='dangky.html'">ĐĂNG KÝ</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-banner">
+            <div class="hero-overlay"></div>
+            
+            <div class="hero-content">
+                <h2>RÈN LUYỆN THÂN THỂ - TU DƯỠNG TINH THẦN</h2>
+                <p>Khám phá tinh hoa võ thuật Việt Nam cùng Câu lạc bộ Vovinam Ea M'droh</p>
+                <button class="btn-primary" onclick="window.location.href='dangky.html'">THAM GIA NGAY</button>
+            </div>
+            
+        </section>
+        <div class="sub-header">
+            <div class="sub-header-container">
+            <!-- Đã thêm id="current-date" để JavaScript có thể tìm và cập nhật nội dung -->
+            <div class="date-text" id="current-date">Đang cập nhật...</div>
+                <div class="marquee-wrapper">
+                    <marquee behavior="scroll" direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
+                    CHÀO MỪNG QUÝ PHỤ HUYNH VÀ CÁC EM MÔN SINH ĐẾN VỚI CLB VOVINAM
+                    </marquee>
+                </div>
+            </div>
+        </div>
+        <section class="clubs-section" style="padding: 50px 20px; text-align: center; background-color: #f8fafc;">
+        <h2 class="section-title" id="tieuDeCLB" style="color: #0056b3; margin-bottom: 30px;">CÁC CÂU LẠC BỘ TRỰC THUỘC</h2>
+        
+        <div class="clubs-grid" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+            
+            <div class="clb-card" data-name="CLB Lê Hữu Trác" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: 250px; transition: all 0.3s;">
+                <a href="clb-lehuutrac.html" style="text-decoration: none; color: inherit; display: block;">
+                    <img src="logo-le-huu-trac.webp" alt="CLB Lê Hữu Trác" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+                    <h3 style="color: #001f3f; font-size: 18px;">CLB Lê Hữu Trác</h3>
+                    <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Trường THPT Lê Hữu Trác</p>
+                </a>
+            </div>
+
+            <div class="clb-card" data-name="CLB Nguyễn Huệ" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: 250px; transition: all 0.3s;">
+                <a href="clb-nguyenhue.html" style="text-decoration: none; color: inherit; display: block;">
+                    <img src="logo-nguyen-hue.webp" alt="CLB Nguyễn Huệ" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+                    <h3 style="color: #001f3f; font-size: 18px;">CLB Nguyễn Huệ</h3>
+                    <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Trường THCS Nguyễn Huệ</p>
+                </a>
+            </div>
+
+            <div class="clb-card" data-name="CLB Hùng Vương" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: 250px; transition: all 0.3s;">
+                <a href="clb-hungvuong.html" style="text-decoration: none; color: inherit; display: block;">
+                    <img src="logo-hung-vuong.webp" alt="CLB Hùng Vương" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+                    <h3 style="color: #001f3f; font-size: 18px;">CLB Hùng Vương</h3>
+                    <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Trường THCS Hùng Vương</p>
+                </a>
+            </div>
+
+            <div class="clb-card" data-name="CLB Y Ngông" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: 250px; transition: all 0.3s;">
+                <a href="clb-yngong.html" style="text-decoration: none; color: inherit; display: block;">
+                    <img src="logo-y-ngong.webp" alt="CLB Y Ngông" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+                    <h3 style="color: #001f3f; font-size: 18px;">CLB Y Ngông</h3>
+                    <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Trường THCS Y Ngông Niê Kdăm</p>
+                </a>
+            </div>
+
+            <div class="clb-card" data-name="CLB Nội Trú" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: 250px; transition: all 0.3s;">
+                <a href="clb-noitru.html" style="text-decoration: none; color: inherit; display: block;">
+                    <img src="logo-noi-tru.webp" alt="CLB Nội Trú" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+                    <h3 style="color: #001f3f; font-size: 18px;">CLB Nội Trú</h3>
+                    <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Trường PTDT Nội Trú</p>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+        <section style="background-color: #f8fafc; padding: 60px 20px;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="text-align: center; color: #0056b3; font-size: 28px; font-weight: 800; margin-bottom: 40px;">TIN TỨC VÀ SỰ KIỆN</h2>
+            
+            <div id="tinTucTrangChuBox">
+                <p style="text-align: center; padding: 30px; font-weight: bold; color: #64748b;">⏳ Hệ thống đang tải các bản tin mới nhất...</p>
+            </div>
+            
+        </div>
+    </section>
+    </main>
+    
+    <script>
+        function updateDate() {
+            // 1. Lấy ngày giờ hiện tại
+            const today = new Date();
+
+            // 2. Tạo danh sách các "Thứ" trong tuần bằng tiếng Việt
+            const daysInVietnamese = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+        
+            // 3. Lấy tên Thứ dựa vào số thứ tự của ngày hôm nay
+            const dayName = daysInVietnamese[today.getDay()];
+
+            // 4. Lấy Ngày, Tháng, Năm và thêm số 0 ở trước nếu số nhỏ hơn 10 (ví dụ: ngày 4 thành 04)
+            const date = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Javascript tính tháng từ 0-11 nên phải cộng thêm 1
+            const year = today.getFullYear();
+
+            // 5. Ghép lại thành chuỗi hoàn chỉnh theo mẫu "Thứ, DD/MM/YYYY"
+            const formattedDate = `${dayName}, ${date}/${month}/${year}`;
+
+            // 6. Tìm thẻ div có id "current-date" và đưa chữ đã ghép vào đó
+            document.getElementById('current-date').textContent = formattedDate;
+            }
+
+            // Chạy hàm ngay khi trang web vừa tải xong
+        updateDate();
+    </script>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo">VOVINAM EA M'DROH</h3>
+                <p class="slogan">"Tinh Hoa Võ Thuật Việt Nam"</p>
+                <p class="sub-slogan">Rèn luyện thân thể - Tu dưỡng tinh thần</p>
+            </div>
+            <div class="footer-col">
+                <h4>LIÊN HỆ</h4>
+                <p>📞 Hotline BCN: <strong>0922.904.904</strong></p>
+                <p>✉️ Email: <strong>chungpln10101@gmail.com</strong></p>
+                <p>📍 Địa chỉ: Cư M'gar, Đắk Lắk</p>
+            </div>
+            <div class="footer-col">
+                <h4>KẾT NỐI VỚI CHÚNG TÔI</h4>
+                <div class="social-links">
+                    <a href="https://zalo.me/0332803846" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo IT</a> 
+                    <a href="https://zalo.me/0922904904" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo HLV</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vovinam Việt Võ Đạo - Ea M'droh. Thiết kế và phát triển bởi Phùng Lữ Ngọc Chung.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

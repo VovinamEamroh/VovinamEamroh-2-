@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Splash Screen - Ánh sáng lướt</title>
+    <style>
+        /* ========================================================
+           1. GIAO DIỆN NỀN TRANG CHỦ DEMO
+           ======================================================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f1f5f9;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 100vh; padding: 20px;
+        }
+        .trang-chinh-demo {
+            background: #ffffff; padding: 30px; border-radius: 16px; text-align: center; max-width: 420px; width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        .btn-replay {
+            background: linear-gradient(135deg, #0056b3, #0284c7); color: white; border: none; padding: 12px 24px;
+            font-size: 15px; font-weight: bold; border-radius: 999px; cursor: pointer; margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-replay:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 86, 179, 0.45); }
+
+        /* ========================================================
+           2. HIỆU ỨNG MÀN HÌNH CHỜ (SPLASH SCREEN CAO CẤP)
+           ======================================================== */
+        .splash-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #ffffff;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 999999;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+
+        /* Dòng chữ Tên Câu lạc bộ phía trên */
+        .splash-title {
+            color: #0056b3; /* Xanh dương Vovinam */
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 35px;
+            text-align: center;
+            /* Đổ bóng chữ nhẹ màu vàng để nổi bật */
+            text-shadow: 1px 1px 2px rgba(255, 204, 0, 0.5); 
+            opacity: 0;
+            /* Hiệu ứng rơi xuống nhẹ và rõ dần */
+            animation: roiXongHienRo 0.8s ease-out forwards 0.2s;
+        }
+
+        @keyframes roiXongHienRo {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Khung chứa Logo để khống chế dải ánh sáng không bị lọt ra ngoài */
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: 50%; /* Vòng tròn theo hình logo Vovinam */
+            overflow: hidden; /* Cực kỳ quan trọng: Giữ ánh sáng bên trong logo */
+            opacity: 0;
+            animation: hienRoDan 1s ease-out forwards 0.4s;
+        }
+
+        .splash-logo {
+            display: block;
+            width: 170px;
+            height: auto;
+        }
+
+        /* Hiệu ứng ÁNH SÁNG LƯỚT (Shine Effect) bằng thẻ giả ::after */
+        .logo-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            /* Tạo dải màu gradient trắng mờ */
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+            /* Làm nghiêng dải ánh sáng */
+            transform: skewX(-25deg);
+            /* Chạy lặp đi lặp lại */
+            animation: anhSangLuot 2.5s infinite;
+        }
+
+        @keyframes anhSangLuot {
+            0% { left: -150%; }
+            20% { left: 150%; } /* Ánh sáng chạy qua rất nhanh */
+            100% { left: 150%; } /* Nghỉ một lúc rồi mới chạy lại */
+        }
+
+        @keyframes hienRoDan {
+            0% { opacity: 0; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Vòng tròn loading */
+        .splash-spinner {
+            margin-top: 40px; width: 36px; height: 36px;
+            border: 3.5px solid #e2e8f0; border-top: 3.5px solid #0056b3; border-radius: 50%;
+            opacity: 0;
+            animation: xoayTron 0.9s linear infinite, hienRoDanFade 0.8s ease-out forwards 0.8s;
+        }
+
+        @keyframes xoayTron {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes hienRoDanFade {
+            0% { opacity: 0; } 100% { opacity: 1; }
+        }
+
+        .an-splash { opacity: 0 !important; visibility: hidden !important; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <!-- MÀN HÌNH CHỜ CAO CẤP -->
+    <div id="manHinhCho" class="splash-screen">
+        <!-- Chữ phía trên -->
+        <h2 class="splash-title">VOVINAM-VIỆT VÕ ĐẠO<br>EA' MDROH</h2>
+        
+        <!-- Khung chứa ảnh và ánh sáng lướt -->
+        <div class="logo-wrapper" id="hieuUngAnhSang">
+            <img src="Logo_VVF.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Vovinam_logo.svg/300px-Vovinam_logo.svg.png'" alt="Vovinam Logo" class="splash-logo">
+        </div>
+        
+        <!-- Vòng xoay -->
+        <div class="splash-spinner"></div>
+    </div>
+
+    <!-- NỘI DUNG TRANG CHỦ -->
+    <main class="trang-chinh-demo">
+        <h1 style="color: #0056b3; margin-bottom: 10px;">🎉 Thật tuyệt vời!</h1>
+        <p style="color: #555;">Hiệu ứng ánh sáng lướt qua logo giúp ứng dụng trông bóng bẩy và chuyên nghiệp hơn rất nhiều.</p>
+        <button class="btn-replay" onclick="xemLaiHieuUng()">🔄 Xem Lại Hiệu Ứng</button>
+    </main>
+
+    <!-- MÃ XỬ LÝ -->
+    <script>
+        const manHinhCho = document.getElementById('manHinhCho');
+        const hieuUngAnhSang = document.getElementById('hieuUngAnhSang');
+        const tieuDe = document.querySelector('.splash-title');
+        const spinner = document.querySelector('.splash-spinner');
+
+        function khoiDongHieuUng() {
+            // Hiển thị trong 3 giây để người dùng kịp đọc chữ và xem ánh sáng lướt 1 vòng
+            setTimeout(() => {
+                manHinhCho.classList.add('an-splash');
+            }, 3000); 
+        }
+
+        window.addEventListener('load', khoiDongHieuUng);
+
+        // Nút xem lại hiệu ứng mà không cần tải lại trang
+        function xemLaiHieuUng() {
+            manHinhCho.classList.remove('an-splash');
+            
+            // Ép khởi động lại toàn bộ animation
+            [hieuUngAnhSang, tieuDe, spinner].forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; 
+                el.style.animation = null;
+            });
+
+            khoiDongHieuUng();
+        }
+    </script>
+</body>
+</html>

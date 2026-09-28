@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử mua hàng | VOVINAM EA M'DROH</title>
+    <link rel="icon" type="image/png" href="Logo_VVF.png">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKTVYHZR0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKTVYHZR0Z');
+    </script>
+</head>
+<body style="background-color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="Logo_VVF.png" alt="Logo Vovinam">
+            <h1>VOVINAM EAM'DROH</h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#">TRANG CHỦ</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">CÂU LẠC BỘ</a>
+                    <div class="dropdown-content">
+                        <a href="diemdanh.html" id="navDiemDanhCLB">🎯 Điểm danh CLB</a>
+                        <a href="#" id="navThongTinCLB">ℹ️ Thông tin CLB</a>
+                    </div>
+                </li>
+                <li><a href="tintuc.html">TIN TỨC</a></li>
+                <li><a href="cuahang.html">CỬA HÀNG</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons-group" style="display: flex; align-items: center; gap: 12px; margin-right: 20px;">
+            <!-- Nút Giao diện Tối/Sáng (Mặc định là Mặt trăng) -->
+            <button id="themeToggleBtn" class="nav-icon-btn" onclick="toggleDarkMode()" title="Giao diện Tối/Sáng">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+
+            <!-- Nút Chuông Thông báo -->
+            <div class="notification-bell nav-icon-btn" onclick="toggleThongBao()" title="Thông báo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span id="thongBaoBadge" class="badge">2</span>
+        
+                <!-- Hộp thoại thả xuống giữ nguyên -->
+                <div id="thongBaoDropdown" class="thongbao-content">
+                    <div class="thongbao-header">Thông báo của bạn</div>
+                    <ul id="danhSachThongBao">
+                        <li style="text-align:center; padding: 10px;">Đang tải...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="color: #0056b3; font-size: 28px; font-weight: 800;">🛒 LỊCH SỬ ĐƠN HÀNG CỦA TÔI</h2>
+            <a href="cuahang.html" style="text-decoration: none; background: #e2ebf4; color: #0056b3; padding: 10px 20px; border-radius: 8px; font-weight: bold; transition: 0.3s;">🔙 Quay lại Cửa hàng</a>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background-color: #f1f5f9; color: #001f3f;">
+                        <th style="padding: 15px; border-top-left-radius: 10px;">Mã đơn & Thời gian</th>
+                        <th style="padding: 15px;">Chi tiết món hàng</th>
+                        <th style="padding: 15px;">Tổng tiền</th>
+                        <th style="padding: 15px; border-top-right-radius: 10px; text-align: center;">Trạng thái đơn</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyLichSuDonHang">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo">VOVINAM EA M'DROH</h3>
+                <p class="slogan">"Tinh Hoa Võ Thuật Việt Nam"</p>
+                <p class="sub-slogan">Rèn luyện thân thể - Tu dưỡng tinh thần</p>
+            </div>
+            <div class="footer-col">
+                <h4>LIÊN HỆ</h4>
+                <p>📞 Hotline BCN: <strong>0922.904.904</strong></p>
+                <p>✉️ Email: <strong>chungpln10101@gmail.com</strong></p>
+                <p>📍 Địa chỉ: Cư M'gar, Đắk Lắk</p>
+            </div>
+            <div class="footer-col">
+                <h4>KẾT NỐI VỚI CHÚNG TÔI</h4>
+                <div class="social-links">
+                    <a href="https://zalo.me/0332803846" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo IT</a> 
+                    <a href="https://zalo.me/0922904904" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo HLV</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vovinam Việt Võ Đạo - Ea M'droh. Thiết kế và phát triển bởi Phùng Lữ Ngọc Chung.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

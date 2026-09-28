@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Tin Nhắn | Admin Vovinam</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKTVYHZR0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKTVYHZR0Z');
+    </script>
+    <style>
+        /* GIAO DIỆN DARK MODE ADMIN CHAT */
+        body { background-color: #222222; margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        
+        .admin-chat-container { display: flex; flex: 1; height: calc(100vh - 70px); background: #2b2b2b; }
+        
+        /* Cột bên trái: Danh sách người nhắn */
+        .chat-sidebar { width: 350px; background: #2f3136; border-right: 1px solid #202225; display: flex; flex-direction: column; }
+        .sidebar-header { padding: 20px; border-bottom: 1px solid #202225; display: flex; gap: 10px; }
+        .sidebar-header button { background: none; border: none; color: #b9bbbe; font-size: 16px; font-weight: bold; cursor: pointer; padding: 5px 10px; border-radius: 5px; }
+        .sidebar-header button.active { background: #393c43; color: white; }
+        
+        .user-list { flex: 1; overflow-y: auto; }
+        .user-item { display: flex; align-items: center; padding: 15px 20px; cursor: pointer; transition: 0.2s; border-bottom: 1px solid #36393f; }
+        .user-item:hover, .user-item.active { background: #393c43; }
+        .user-item img { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; }
+        .user-info { flex: 1; }
+        .user-name { color: white; font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+        .user-preview { color: #8e9297; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+        
+        /* Cột bên phải: Nội dung chat */
+        .chat-main { flex: 1; display: flex; flex-direction: column; background: #36393f; }
+        .chat-messages { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+        
+        .msg-row { display: flex; align-items: flex-end; gap: 15px; max-width: 70%; }
+        .msg-row img { width: 40px; height: 40px; border-radius: 50%; }
+        .msg-bubble-admin { padding: 12px 18px; border-radius: 20px; font-size: 15px; line-height: 1.4; }
+        
+        /* Người dùng gửi (Căn trái, xám đậm) */
+        .row-incoming { align-self: flex-start; }
+        .row-incoming .msg-bubble-admin { background: #2f3136; color: #dcddde; border-bottom-left-radius: 5px; }
+        
+        /* Admin gửi (Căn phải, màu tím giống ảnh) */
+        .row-outgoing { align-self: flex-end; flex-direction: row-reverse; }
+        .row-outgoing .msg-bubble-admin { background: #8b5cf6; color: white; border-bottom-right-radius: 5px; }
+        
+        /* Khu vực gõ phím */
+        .chat-input-area { padding: 20px 30px; background: #36393f; }
+        .input-wrapper { display: flex; background: #40444b; border-radius: 8px; padding: 10px 15px; align-items: center; }
+        .input-wrapper input { flex: 1; background: transparent; border: none; color: white; font-size: 15px; outline: none; }
+        .input-wrapper input::placeholder { color: #72767d; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" style="position: static;">
+        <div class="logo"><h1>VOVINAM EAM'DROH</h1></div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">TRANG CHỦ</a></li>
+                <li><a href="quanlymonsinh.html">QUẢN LÝ MÔN SINH</a></li>
+                <li><a href="tinnhan.html" style="color: #10b981;">TIN NHẮN</a></li>
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            </div>
+    </nav>
+
+    <div class="admin-chat-container">
+        <div class="chat-sidebar">
+            <div class="sidebar-header">
+                <button class="active">Tất cả</button>
+                <button>Chưa đọc</button>
+            </div>
+            <div class="user-list" id="danhSachNguoiNhan">
+                </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-messages" id="adminChatMessages">
+                </div>
+
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="adminChatInput" placeholder="Chọn cuộc trò chuyện..." disabled onkeypress="if(event.key === 'Enter') guiTinNhanAdmin()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (localStorage.getItem("daDangNhap") !== "true" || localStorage.getItem("vaiTroDangNhap")?.trim() !== "Admin") {
+            alert("⛔ Quyền truy cập bị từ chối! Khu vực này chỉ dành cho Ban Chủ Nhiệm.");
+            window.location.href = "index.html";
+        }
+
+        const API_CHAT = "https://script.google.com/macros/s/AKfycbzR2qq52Umui1UC0FeunIbkhuDNBde8tdOM4Q5AmKnXKWvLtcJeelNvcNfBRV5a1PhWfw/exec"; // ⚠️ DÁN LINK VÀO ĐÂY GIỐNG NHƯ FILE SCRIPT.JS
+
+        let taiKhoanDangChat = null; 
+        let tatCaTinNhan = [];
+
+        // 1. Kéo toàn bộ lịch sử từ Google Sheets
+        async function fetchTinNhanTuSheet() {
+            try {
+                let response = await fetch(API_CHAT, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "getChat" })
+                });
+                tatCaTinNhan = await response.json();
+                renderSidebar();
+                if (taiKhoanDangChat) loadTinNhanAdmin(taiKhoanDangChat, false);
+            } catch (e) {
+                console.log("Đang tải dữ liệu...");
+            }
+        }
+
+        // 2. Tạo danh sách người nhắn bên tay trái
+        function renderSidebar() {
+            const userList = document.querySelector('.user-list');
+            if (!tatCaTinNhan || tatCaTinNhan.length === 0) {
+                userList.innerHTML = `<div style="padding: 20px; color: #8e9297; text-align: center;">Chưa có tin nhắn nào</div>`;
+                return;
+            }
+
+            let danhSachNhom = {};
+            tatCaTinNhan.forEach(msg => {
+                if (!danhSachNhom[msg.idUser]) {
+                    danhSachNhom[msg.idUser] = { hoTen: msg.hoTen, tinNhanCuoi: "", chuaDoc: false };
+                }
+                danhSachNhom[msg.idUser].tinNhanCuoi = msg.noiDung;
+                // Nếu là tin user gửi và trạng thái chưa đọc -> Hiện chấm đỏ
+                if (msg.sender === "user" && msg.trangThai === "Chưa đọc") {
+                    danhSachNhom[msg.idUser].chuaDoc = true;
+                }
+            });
+
+            userList.innerHTML = ''; 
+            const arrTaiKhoan = Object.keys(danhSachNhom).reverse(); 
+
+            arrTaiKhoan.forEach(idUser => {
+                let data = danhSachNhom[idUser];
+                let isActive = (idUser === taiKhoanDangChat) ? "active" : "";
+                let chamDo = data.chuaDoc ? `<span style="color:#e53e3e; font-size:18px; margin-left:5px;">●</span>` : "";
+
+                userList.innerHTML += `
+                    <div class="user-item ${isActive}" onclick="loadTinNhanAdmin('${idUser}', true)">
+                        <div class="user-info">
+                            <div class="user-name">${data.hoTen} ${chamDo}</div>
+                            <div class="user-preview">${data.tinNhanCuoi}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (!taiKhoanDangChat && arrTaiKhoan.length > 0) {
+                loadTinNhanAdmin(arrTaiKhoan[0], true);
+            }
+        }
+
+        // 3. Hiển thị khung chat của 1 người (CÓ KÈM THỜI GIAN)
+        function loadTinNhanAdmin(idUser, cuonXuongCuoi) {
+            taiKhoanDangChat = idUser;
+            const chatBox = document.getElementById('adminChatMessages');
+            const inputChat = document.getElementById('adminChatInput');
+            
+            chatBox.innerHTML = ''; 
+            inputChat.disabled = false; 
+
+            let myChats = tatCaTinNhan.filter(msg => msg.idUser === idUser);
+            let hoTenHienTai = myChats.length > 0 ? myChats[0].hoTen : idUser;
+            
+            myChats.forEach(msg => {
+                // Xử lý định dạng thời gian cho Admin
+                let timeHienThi = "";
+                if (msg.thoiGian) {
+                    let d = new Date(msg.thoiGian);
+                    let h = d.getHours().toString().padStart(2, '0');
+                    let m = d.getMinutes().toString().padStart(2, '0');
+                    timeHienThi = `<span style="display:block; font-size:11px; margin-top:5px; color:#8e9297; text-align:right;">${h}:${m} ${d.getDate()}/${d.getMonth()+1}</span>`;
+                }
+
+                if (msg.sender === "user") {
+                    chatBox.innerHTML += `<div class="msg-row row-incoming"><div class="msg-bubble-admin">${msg.noiDung}${timeHienThi}</div></div>`;
+                } else {
+                    chatBox.innerHTML += `<div class="msg-row row-outgoing"><div class="msg-bubble-admin">${msg.noiDung}${timeHienThi}</div></div>`;
+                }
+            });
+            
+            inputChat.placeholder = `Nhắn tin cho ${hoTenHienTai}...`;
+            if (cuonXuongCuoi) chatBox.scrollTop = chatBox.scrollHeight; 
+
+            let coTinChuaDoc = myChats.some(m => m.sender === "user" && m.trangThai === "Chưa đọc");
+            if(coTinChuaDoc) {
+                 fetch(API_CHAT, {
+                    method: "POST", mode: "no-cors",
+                    body: JSON.stringify({ action: "markAsRead", idUser: idUser })
+                });
+            }
+        }
+
+        // 4. Admin gửi tin nhắn đi (HIỆN NGAY GIỜ GỬI)
+        function guiTinNhanAdmin() {
+            const input = document.getElementById('adminChatInput');
+            const msg = input.value.trim();
+            if(!msg || !taiKhoanDangChat) return;
+
+            // Lấy giờ hiện tại trên máy tính Admin
+            let d = new Date();
+            let h = d.getHours().toString().padStart(2, '0');
+            let m = d.getMinutes().toString().padStart(2, '0');
+            let timeHienThi = `<span style="display:block; font-size:11px; margin-top:5px; color:#8e9297; text-align:right;">${h}:${m} ${d.getDate()}/${d.getMonth()+1}</span>`;
+
+            const chatBox = document.getElementById('adminChatMessages');
+            chatBox.innerHTML += `<div class="msg-row row-outgoing"><div class="msg-bubble-admin">${msg}${timeHienThi}</div></div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = "";
+
+            fetch(API_CHAT, {
+                method: "POST", mode: "no-cors",
+                body: JSON.stringify({ action: "sendChat", idUser: taiKhoanDangChat, hoTen: "Ban Chủ Nhiệm", sender: "admin", noiDung: msg })
+            }).then(() => setTimeout(fetchTinNhanTuSheet, 1000));
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchTinNhanTuSheet);
+        setInterval(fetchTinNhanTuSheet, 4000);
+    </script>
+</body>
+</html>

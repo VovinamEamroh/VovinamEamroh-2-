@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Môn Sinh | Admin Vovinam</title>
+    <link rel="icon" type="image/png" href="Logo_VVF.png">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKTVYHZR0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKTVYHZR0Z');
+    </script>
+</head>
+<body class="auth-body">
+
+    <nav class="navbar">
+        <div class="logo"><h1>VOVINAM EAM'DROH</h1></div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">TRANG CHỦ</a></li>
+                <li><a href="tintuc.html">TIN TỨC</a></li>
+                <li><a href="cuahang.html">CỬA HÀNG</a></li>
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            </div>
+    </nav>
+
+    <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+            <h2 style="color: #e53e3e; font-size: 28px; font-weight: 800;">👑 HỆ THỐNG QUẢN LÝ MÔN SINH</h2>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <label style="font-weight: bold; color: #001f3f;">Lọc theo CLB:</label>
+                <select id="locDanhSachCLB" style="padding: 10px 15px; border: 2px solid #0056b3; border-radius: 8px; font-size: 15px; font-weight: bold; color: #0056b3; outline: none; cursor: pointer;">
+                    <option value="tat-ca">🌍 Tất cả các CLB</option>
+                    <option value="CLB Lê Hữu Trác">CLB Lê Hữu Trác</option>
+                    <option value="CLB Nguyễn Huệ">CLB Nguyễn Huệ</option>
+                    <option value="CLB Hùng Vương">CLB Hùng Vương</option>
+                    <option value="CLB Y Ngông">CLB Y Ngông</option>
+                    <option value="CLB Nội Trú">CLB Nội Trú</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background-color: #001f3f; color: white;">
+                        <th style="padding: 15px; text-align: center;">STT</th>
+                        <th style="padding: 15px;">Họ và tên thực</th>
+                        <th style="padding: 15px;">Số điện thoại</th>
+                        <th style="padding: 15px; text-align: center;">Câu Lạc Bộ</th>
+                        <th style="padding: 15px; text-align: center;">Cấp đai</th>
+                        <th style="padding: 15px; text-align: center;">Vai trò</th>
+                        <th style="padding: 15px; text-align: center;">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyDanhSachMonSinh">
+                    </tbody>
+            </table>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 60px; margin-bottom: 20px; border-top: 3px dashed #e2ebf4; padding-top: 40px;">
+            <h2 style="color: #0056b3; font-size: 28px; font-weight: 800;">📦 DANH SÁCH ĐƠN HÀNG</h2>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow-x: auto; margin-bottom: 50px;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background-color: #0056b3; color: white;">
+                        <th style="padding: 15px; border-top-left-radius: 10px;">Thời gian đặt</th>
+                        <th style="padding: 15px;">Thông tin khách hàng</th>
+                        <th style="padding: 15px;">Chi tiết món hàng</th>
+                        <th style="padding: 15px;">Tổng tiền</th>
+                        <th style="padding: 15px; border-top-right-radius: 10px; text-align: center;">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyDanhSachDonHang">
+                    </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <h3 style="color: #0056b3; font-size: 22px; margin-bottom: 20px;">📰 SOẠN THẢO TIN TỨC & SỰ KIỆN</h3>
+            <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <form id="formDangTin">
+                    <div style="display: flex; gap: 20px; margin-bottom: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <label style="font-weight: bold; color: #001f3f;">Tiêu đề bài viết:</label>
+                            <input type="text" id="tinTieuDe" required placeholder="VD: Khai giảng lớp Vovinam khóa mùa Hè..." style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="font-weight: bold; color: #001f3f;">Chuyên mục:</label>
+                            <select id="tinChuyenMuc" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; cursor: pointer;">
+                                <option value="Sự kiện Hot">🔥 Sự kiện Hot</option>
+                                <option value="Tuyển sinh">📢 Tuyển sinh</option>
+                                <option value="Thành tích">🏆 Thành tích</option>
+                                <option value="Hoạt động">🏃 Hoạt động</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-weight: bold; color: #001f3f;">Link ảnh bìa:</label>
+                        <input type="url" id="tinLinkAnh" required placeholder="Dán đường link ảnh vào đây (VD: https://.../anh.jpg)" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: bold; color: #001f3f;">Nội dung bài viết:</label>
+                        <textarea id="tinNoiDung" required rows="5" placeholder="Viết nội dung chi tiết của bản tin ở đây..." style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; resize: vertical;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-post-news" style="background: #10b981; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);">🚀 ĐĂNG BÀI VIẾT LÊN TRANG CHỦ</button>
+                </form>
+                <!-- KHU VỰC QUẢN LÝ POP-UP -->
+                <div id="quanly-popup" style="margin-top: 50px; margin-bottom: 50px;">
+                    <h3 style="color: #0056b3; font-size: 22px; margin-bottom: 20px;">📢 CÀI ĐẶT POP-UP THÔNG BÁO TỰ ĐỘNG</h3>
+                    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <p style="color: #64748b; font-size: 15px; margin-bottom: 20px;">
+                            Viết thông báo để hiển thị cho môn sinh khi vừa truy cập website. 
+                            <br>💡 <strong>Mẹo:</strong> Viết chữ <code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; color:#e53e3e;">{ten}</code> trong nội dung để hệ thống tự động gọi tên môn sinh đó.
+                        </p>
+                
+                        <label style="font-weight: bold; color: #001f3f; display: block; margin-bottom: 8px;">Tiêu đề thông báo:</label>
+                        <input type="text" id="popupTieuDe" placeholder="Ví dụ: THÔNG BÁO TẬP TRUNG THI THĂNG CẤP..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
+                
+                        <label style="font-weight: bold; color: #001f3f; display: block; margin-bottom: 8px;">Nội dung chi tiết:</label>
+                        <textarea id="popupNoiDung" placeholder="Ví dụ: Chào {ten}, cuối tuần này nhớ mang đầy đủ võ phục nhé!..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 8px; min-height: 120px; resize: vertical; outline: none;"></textarea>
+                
+                        <label style="font-weight: bold; color: #001f3f; display: block; margin-bottom: 8px;">Trạng thái hiển thị:</label>
+                        <select id="popupTrangThai" style="width: 100%; padding: 12px; margin-bottom: 25px; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: bold; color: #0056b3; outline: none; cursor: pointer;">
+                            <option value="Bật">🟢 BẬT: Đang hiển thị cho người dùng</option>
+                            <option value="Tắt">🔴 TẮT: Đang ẩn, không hiển thị</option>
+                        </select>
+                
+                        <button onclick="luuPopupAdmin()" id="btnLuuPopup" style="background: #e53e3e; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);">
+                            💾 LƯU & ÁP DỤNG THÔNG BÁO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo">VOVINAM EA M'DROH</h3>
+                <p class="slogan">"Tinh Hoa Võ Thuật Việt Nam"</p>
+                <p class="sub-slogan">Rèn luyện thân thể - Tu dưỡng tinh thần</p>
+            </div>
+            <div class="footer-col">
+                <h4>LIÊN HỆ</h4>
+                <p>📞 Hotline BCN: <strong>0922.904.904</strong></p>
+                <p>✉️ Email: <strong>chungpln10101@gmail.com</strong></p>
+                <p>📍 Địa chỉ: Cư M'gar, Đắk Lắk</p>
+            </div>
+            <div class="footer-col">
+                <h4>KẾT NỐI VỚI CHÚNG TÔI</h4>
+                <div class="social-links">
+                    <a href="https://zalo.me/0332803846" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo IT</a> 
+                    <a href="https://zalo.me/0922904904" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo HLV</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vovinam Việt Võ Đạo - Ea M'droh. Thiết kế và phát triển bởi Phùng Lữ Ngọc Chung.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#tinNoiDung', // Nhắm đúng vào cái khung textarea của chúng ta
+            height: 400, // Chiều cao khung soạn thảo
+            plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table help wordcount',
+            toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | removeformat | help',
+            content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:16px; }',
+            setup: function (editor) {
+                // Đảm bảo dữ liệu được đồng bộ vào textarea gốc khi người dùng gõ
+                editor.on('change', function () {
+                    tinymce.triggerSave();
+                });
+            }
+        });
+    </script>
+
+    <script>
+        // ⚠️ NHỚ DÁN LẠI LINK APPS SCRIPT CỦA BẠN VÀO ĐÂY NHÉ
+        const API_LINK_POPUP = "https://script.google.com/macros/s/AKfycbzR2qq52Umui1UC0FeunIbkhuDNBde8tdOM4Q5AmKnXKWvLtcJeelNvcNfBRV5a1PhWfw/exec"; 
+
+        // Hàm tải thông báo cũ lên màn hình 
+        async function taiPopupCuaAdmin() {
+            try {
+                let res = await fetch(API_LINK_POPUP, { method: "POST", body: JSON.stringify({ action: "getPopup" }) });
+                let data = await res.json();
+                if(data.tieuDe) document.getElementById('popupTieuDe').value = data.tieuDe;
+                if(data.noiDung) document.getElementById('popupNoiDung').value = data.noiDung;
+                if(data.trangThai) document.getElementById('popupTrangThai').value = data.trangThai;
+            } catch(e) {}
+        }
+        
+        // Tự động tải dữ liệu khi Admin vừa vào trang
+        window.addEventListener('DOMContentLoaded', taiPopupCuaAdmin);
+
+        // Hàm lưu thông báo
+        function luuPopupAdmin() {
+            let tieuDe = document.getElementById('popupTieuDe').value.trim();
+            let noiDung = document.getElementById('popupNoiDung').value.trim();
+            let trangThai = document.getElementById('popupTrangThai').value;
+            let btn = document.getElementById('btnLuuPopup');
+
+            if(!tieuDe || !noiDung) {
+                alert("⚠️ Vui lòng nhập đầy đủ Tiêu đề và Nội dung!");
+                return;
+            }
+
+            btn.innerText = "⏳ ĐANG LƯU LÊN MÁY CHỦ...";
+            btn.style.background = "#94a3b8";
+
+            fetch(API_LINK_POPUP, {
+                method: "POST", mode: "no-cors",
+                body: JSON.stringify({ action: "savePopup", tieuDe: tieuDe, noiDung: noiDung, trangThai: trangThai })
+            }).then(() => {
+                alert("✅ Đã cập nhật Pop-up thành công!");
+                btn.innerText = "💾 LƯU & ÁP DỤNG THÔNG BÁO";
+                btn.style.background = "#e53e3e";
+            });
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

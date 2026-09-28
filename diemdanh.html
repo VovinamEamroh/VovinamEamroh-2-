@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm Danh | Vovinam Ea M'droh</title>
+    <link rel="icon" type="image/png" href="Logo_VVF.png">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKTVYHZR0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKTVYHZR0Z');
+    </script>
+</head>
+<body class="auth-body">
+
+    <nav class="navbar">
+        <div class="logo"><h1>VOVINAM EAM'DROH</h1></div>
+        <div class="menu">
+            <ul>
+                <li><a href="index.html">TRANG CHỦ</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">CÂU LẠC BỘ</a>
+                    <div class="dropdown-content">
+                        <a href="diemdanh.html" id="navDiemDanhCLB">🎯 Điểm danh CLB</a>
+                        <a href="#" id="navThongTinCLB">ℹ️ Thông tin CLB</a>
+                    </div>
+                </li>
+                <li><a href="tintuc.html">TIN TỨC</a></li>
+                <li><a href="cuahang.html">CỬA HÀNG</a></li>
+            </ul>
+        </div>
+        <div class="auth-buttons">
+            <button class="btn-login" onclick="window.location.href='dangnhap.html'">ĐĂNG NHẬP</button>
+            <button class="btn-register" onclick="window.location.href='dangky.html'">ĐĂNG KÝ</button>
+        </div>
+    </nav>
+
+    <main style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <h2 style="color: #0056b3; font-size: 24px; font-weight: 800; margin: 0;">📋 ĐIỂM DANH VÕ SINH</h2>
+            
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <select id="clbDiemDanh" class="filter-select" onchange="taiDanhSachDiemDanh()" style="padding: 10px 15px; border-radius: 8px; border: 2px solid #e2ebf4; font-weight: bold; color: #001f3f; outline: none; cursor: pointer;">
+                    <option value="CLB Lê Hữu Trác">CLB Lê Hữu Trác</option>
+                    <option value="CLB Nguyễn Huệ">CLB Nguyễn Huệ</option>
+                    <option value="CLB Hùng Vương">CLB Hùng Vương</option>
+                    <option value="CLB Y Ngông">CLB Y Ngông</option>
+                    <option value="CLB Nội Trú">CLB Nội Trú</option>
+                </select>
+                
+                <input type="date" id="ngayDiemDanh" style="padding: 10px 15px; border-radius: 8px; border: 2px solid #e2ebf4; font-weight: bold; color: #001f3f; outline: none; cursor: pointer;">
+            </div>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow-x: auto; margin-bottom: 30px;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #e2ebf4; color: #64748b; font-size: 14px;">
+                        <th style="padding: 15px; text-align: center; width: 10%;">STT</th>
+                        <th style="padding: 15px; width: 40%;">HỌ VÀ TÊN</th>
+                        <th style="padding: 15px; text-align: center; width: 25%;">CẤP ĐAI</th>
+                        <th style="padding: 15px; text-align: center; width: 25%;">TRẠNG THÁI</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyDanhSachDiemDanh">
+                    <tr><td colspan="4" style="text-align:center; padding: 30px; font-weight:bold; color:#64748b;">⏳ Đang tải danh sách võ sinh từ hệ thống...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: right;">
+            <button class="btn-save-attendance" style="background: #0056b3; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);">💾 LƯU DANH SÁCH ĐIỂM DANH</button>
+        </div>
+        
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo">VOVINAM EA M'DROH</h3>
+                <p class="slogan">"Tinh Hoa Võ Thuật Việt Nam"</p>
+                <p class="sub-slogan">Rèn luyện thân thể - Tu dưỡng tinh thần</p>
+            </div>
+            <div class="footer-col">
+                <h4>LIÊN HỆ</h4>
+                <p>📞 Hotline BCN: <strong>0922.904.904</strong></p>
+                <p>✉️ Email: <strong>chungpln10101@gmail.com</strong></p>
+                <p>📍 Địa chỉ: Cư M'gar, Đắk Lắk</p>
+            </div>
+            <div class="footer-col">
+                <h4>KẾT NỐI VỚI CHÚNG TÔI</h4>
+                <div class="social-links">
+                    <a href="https://zalo.me/0332803846" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo IT</a> 
+                    <a href="https://zalo.me/0922904904" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo HLV</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vovinam Việt Võ Đạo - Ea M'droh. Thiết kế và phát triển bởi Phùng Lữ Ngọc Chung.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

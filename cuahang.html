@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa Hàng - VOVINAM EAM'DROH</title>
+    <link rel="icon" type="image/png" href="Logo_VVF.png">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BKTVYHZR0Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BKTVYHZR0Z');
+    </script>
+</head>
+<body>
+    <header class="navbar">
+    <div class="logo">
+        <img src="Logo_VVF.png" alt="Logo Vovinam">
+        <h1>VOVINAM EAM'DROH</h1>
+    </div>
+    <!-- Các phần menu bên dưới giữ nguyên -->
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">TRANG CHỦ</a></li>
+                <li><a href="#">CÂU LẠC BỘ</a></li>
+                <li><a href="tintuc.html">TIN TỨC</a></li>
+                <li><a href="cuahang.html" style="color: #0056b3;">CỬA HÀNG</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn-login" onclick="window.location.href='dangnhap.html'">ĐĂNG NHẬP</button>
+            <button class="btn-register" onclick="window.location.href='dangky.html'">ĐĂNG KÝ</button>
+        </div>
+    </header>
+
+    <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 40px;">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
+                <h2 style="color: #0056b3; font-size: 28px; font-weight: 800; margin: 0;">🛍️ CỬA HÀNG VOVINAM</h2>
+                
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <a href="lichsudonhang.html" id="btnLichSuDonHang" style="display: none; background: #fef08a; color: #854d0e; padding: 10px 20px; border-radius: 8px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; align-items: center; gap: 5px;">
+                        📦 Lịch sử đơn hàng
+                    </a>
+                    <a href="giohang.html" id="btnGioHang" style="background: #e53e3e; color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 6px rgba(229, 62, 62, 0.2); transition: 0.3s; display: flex; align-items: center; gap: 5px;">
+                        🛒 Giỏ hàng
+                    </a>
+                </div>
+            </div>
+
+            <div class="search-bar-modern" style="margin-bottom: 20px;">
+                <input type="text" id="oTimKiem" placeholder="Nhập tên võ phục, binh khí cần tìm..." onkeyup="timKiemSanPham()" style="width: 100%; padding: 12px 20px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 15px;">
+            </div>
+
+            <div class="categories-modern" id="danhMucNut" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="active" onclick="locSanPham('tat-ca', this)" style="padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold;">Tất cả</button>
+                <button onclick="locSanPham('vo-phuc', this)" style="padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold;">Võ phục</button>
+                <button onclick="locSanPham('phu-kien', this)" style="padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold;">Phụ kiện</button>
+                <button onclick="locSanPham('binh-khi', this)" style="padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold;">Binh Khí</button>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            
+            <div id="danhSachSanPham" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            
+            <p style="grid-column: 1 / -1; text-align: center; color: #64748b; font-weight: bold; padding: 40px;">⏳ Đang đồng bộ kho hàng từ máy chủ...</p>
+
+        </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo">VOVINAM EA M'DROH</h3>
+                <p class="slogan">"Tinh Hoa Võ Thuật Việt Nam"</p>
+                <p class="sub-slogan">Rèn luyện thân thể - Tu dưỡng tinh thần</p>
+            </div>
+            <div class="footer-col">
+                <h4>LIÊN HỆ</h4>
+                <p>📞 Hotline BCN: <strong>0922.904.904</strong></p>
+                <p>✉️ Email: <strong>chungpln10101@gmail.com</strong></p>
+                <p>📍 Địa chỉ: Cư M'gar, Đắk Lắk</p>
+            </div>
+            <div class="footer-col">
+                <h4>KẾT NỐI VỚI CHÚNG TÔI</h4>
+                <div class="social-links">
+                    <a href="https://zalo.me/0332803846" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo IT</a> 
+                    <a href="https://zalo.me/0922904904" target="_blank" rel="noopener noreferrer" class="social-icon">Zalo HLV</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vovinam Việt Võ Đạo - Ea M'droh. Thiết kế và phát triển bởi Phùng Lữ Ngọc Chung.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
